@@ -1,3 +1,4 @@
+require('dotenv-defaults').config();
 import { GraphQLServer, PubSub } from 'graphql-yoga';
 import * as db from './db.js';
 
@@ -8,7 +9,7 @@ import Subscription from './resolvers/Subscription.js';
 import Query from './resolvers/Query.js';
 
 import  { mongo } from "./mongo/mongo.js"
-require('dotenv-defaults').config();
+
 
 let onLineUserArray = [];
 const setonLineUserArray = (newOnLineUserArray)=>{
@@ -30,6 +31,7 @@ const server = new GraphQLServer({
     pubsub,
   },
 });
+console.log("before call mono.connect() in backend/index process.env.MONGO_URL: ", process.env.MONGO_URL )
 mongo.connect();
 
 server.start({ port: process.env.PORT | 5000 }, () => {
